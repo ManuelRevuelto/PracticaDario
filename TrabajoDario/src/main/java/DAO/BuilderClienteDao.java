@@ -9,7 +9,6 @@ public class BuilderClienteDao {
 			String pais, int codigoPostal, int codigoEmpleado, int limiteCredito) {
 		
 		
-		
 		return new Cliente(codigoCliente, nombreCliente, nombreContacto, apellidoContacto, telefono, fax, lineaDireccion, lineaDireccion2, 
 				ciudad, region, pais, codigoPostal, codigoEmpleado, limiteCredito);
 	}

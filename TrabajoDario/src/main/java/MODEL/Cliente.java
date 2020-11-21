@@ -124,5 +124,13 @@ public class Cliente {
 	public void setLimiteCredito(int limiteCredito) {
 		this.limiteCredito = limiteCredito;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Cliente [codigoCliente=" + codigoCliente + ", nombreCliente=" + nombreCliente + ", nombreContacto="
+				+ nombreContacto + ", apellidoContacto=" + apellidoContacto + ", telefono=" + telefono + ", fax=" + fax
+				+ ", lineaDireccion=" + lineaDireccion + ", lineaDireccion2=" + lineaDireccion2 + ", ciudad=" + ciudad
+				+ ", region=" + region + ", pais=" + pais + ", codigoPostal=" + codigoPostal + ", codigoEmpleado="
+				+ codigoEmpleado + ", limiteCredito=" + limiteCredito + "]";
+	}
 }

@@ -65,7 +65,7 @@ public class App {
 
 		System.out.print("Que cliente quieres actualizar: ");
 		int idP = ky.nextInt();
-		Pedido p3 = new Pedido(idP, new Date(120, 10, 25), new Date(120, 10, 29), null, true, "com3", 1);
+		Pedido p3 = BuilderPedidoDao.buildActualizar(idP, new Date(120, 10, 26), new Date(120, 10, 30), null, true, "com3", 1, misPedidos, misClientes);
 		pedidoDao.actualizar(idP, p3);
 
 		System.out.println();

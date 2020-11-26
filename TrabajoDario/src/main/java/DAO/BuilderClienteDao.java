@@ -1,5 +1,7 @@
 package DAO;
 
+import java.util.List;
+
 import MODEL.Cliente;
 
 public class BuilderClienteDao {
@@ -23,11 +25,11 @@ public class BuilderClienteDao {
 	 * @return Cliente
 	 * @throws IllegalArgumentException
 	 */
-	public static Cliente build(int codigoCliente, String nombreCliente, String nombreContacto, String apellidoContacto,
+	public static Cliente build(misDocumentos tipoDocumento, String documento, String email, String password,int codigoCliente, String nombreCliente, String nombreContacto, String apellidoContacto,
 			int telefono, int fax, String lineaDireccion, String lineaDireccion2, String ciudad, String region,
-			String pais, int codigoPostal, int codigoEmpleado, int limiteCredito) throws IllegalArgumentException {
+			String pais, int codigoPostal, int codigoEmpleado, int limiteCredito, List<Cliente> misClientes) throws IllegalArgumentException {
 
-		ClienteDao clienteDao = new ClienteDao();
+		ClienteDao clienteDao = new ClienteDao(misClientes);
 		if (codigoCliente < 0) {
 			throw new IllegalArgumentException();
 		}
@@ -39,7 +41,7 @@ public class BuilderClienteDao {
 			}
 		}
 
-		return new Cliente(codigoCliente, nombreCliente, nombreContacto, apellidoContacto, telefono, fax,
+		return new Cliente(tipoDocumento, documento, email, password, codigoCliente, nombreCliente, nombreContacto, apellidoContacto, telefono, fax,
 				lineaDireccion, lineaDireccion2, ciudad, region, pais, codigoPostal, codigoEmpleado, limiteCredito);
 	}
 

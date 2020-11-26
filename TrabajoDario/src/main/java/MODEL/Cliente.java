@@ -1,7 +1,14 @@
 package MODEL;
 
+import DAO.misDocumentos;
+
 public class Cliente {
 
+	private misDocumentos tipoDocumento;
+	private String documento;
+
+	private String email;
+	private String password;
 	private int codigoCliente;
 	private String nombreCliente;
 	private String nombreContacto;
@@ -17,12 +24,17 @@ public class Cliente {
 	private int codigoEmpleado;
 	private int limiteCredito;
 
-	/////////
+	///////// Constructor de clientes
 
-	public Cliente(int codigoCliente, String nombreCliente, String nombreContacto, String apellidoContacto,
-			int telefono, int fax, String lineaDireccion, String lineaDireccion2, String ciudad, String region,
-			String pais, int codigoPostal, int codigoEmpleado, int limiteCredito) {
+	public Cliente(misDocumentos tipoDocumento, String documento, String email, String password, int codigoCliente,
+			String nombreCliente, String nombreContacto, String apellidoContacto, int telefono, int fax,
+			String lineaDireccion, String lineaDireccion2, String ciudad, String region, String pais, int codigoPostal,
+			int codigoEmpleado, int limiteCredito) {
 		super();
+		this.tipoDocumento = tipoDocumento;
+		this.documento = documento;
+		this.email = email;
+		this.password = password;
 		this.codigoCliente = codigoCliente;
 		this.nombreCliente = nombreCliente;
 		this.nombreContacto = nombreContacto;
@@ -39,7 +51,39 @@ public class Cliente {
 		this.limiteCredito = limiteCredito;
 	}
 
-	////////
+	//////// Getters and setters
+	public misDocumentos getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(misDocumentos tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+
+	public String getDocumento() {
+		return documento;
+	}
+
+	public void setDocumento(String documento) {
+		this.documento = documento;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public int getId() {
 		return codigoCliente;
 	}
@@ -154,10 +198,11 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [codigoCliente=" + codigoCliente + ", nombreCliente=" + nombreCliente + ", nombreContacto="
-				+ nombreContacto + ", apellidoContacto=" + apellidoContacto + ", telefono=" + telefono + ", fax=" + fax
-				+ ", lineaDireccion=" + lineaDireccion + ", lineaDireccion2=" + lineaDireccion2 + ", ciudad=" + ciudad
-				+ ", region=" + region + ", pais=" + pais + ", codigoPostal=" + codigoPostal + ", codigoEmpleado="
-				+ codigoEmpleado + ", limiteCredito=" + limiteCredito + "]";
+		return "Cliente [email=" + email + ", password" + password + ", codigoCliente=" + codigoCliente + ", nombreCliente="
+				+ nombreCliente + ", nombreContacto=" + nombreContacto + ", apellidoContacto=" + apellidoContacto
+				+ ", telefono=" + telefono + ", fax=" + fax + ", lineaDireccion=" + lineaDireccion
+				+ ", lineaDireccion2=" + lineaDireccion2 + ", ciudad=" + ciudad + ", region=" + region + ", pais="
+				+ pais + ", codigoPostal=" + codigoPostal + ", codigoEmpleado=" + codigoEmpleado + ", limiteCredito="
+				+ limiteCredito + "]";
 	}
 }

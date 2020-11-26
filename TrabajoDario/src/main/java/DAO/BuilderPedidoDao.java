@@ -11,10 +11,9 @@ public class BuilderPedidoDao {
 
 	@SuppressWarnings("deprecation")
 	public static Pedido build(int codigoPedido, Date fechaPedido, Date fechaEsperada, Date fechaEntrega,
-			Boolean estado, String comentarios, int codigoCliente, List<Pedido> misPedidos) {
-
+			Boolean estado, String comentarios, int codigoCliente, List<Pedido> misPedidos, List<Cliente> misClientes) {
+		
 		Calendar calendar = Calendar.getInstance();
-
 		// Comprueba que la fecha de realizacion del pedido es del dia actual
 		if (calendar.get(Calendar.DAY_OF_MONTH) != fechaPedido.getDate()
 				|| calendar.get(Calendar.MONTH) != fechaPedido.getMonth()
@@ -23,10 +22,13 @@ public class BuilderPedidoDao {
 					.println(fechaPedido.getDate() + " " + fechaPedido.getMonth() + " " + fechaPedido.getYear() + 1900);
 			throw new IllegalArgumentException();
 		}
+
+		// Comprueba que la fecha de esperada del pedido es tres dias antes del dia
+		// actual
 		calendar.add(Calendar.DATE, +3);
-		System.out.println(calendar.getTime());
 		if (!fechaEsperada.after(calendar.getTime())) {
-			System.out.println(fechaPedido.getDate() + " " + fechaPedido.getMonth() + " " + fechaPedido.getYear());
+			System.out
+					.println(fechaPedido.getDate() + " " + fechaPedido.getMonth() + " " + fechaPedido.getYear() + 1900);
 			throw new IllegalArgumentException();
 		}
 
@@ -42,9 +44,9 @@ public class BuilderPedidoDao {
 		}
 
 		// Comprueba que el id del codigo del cliente exista
-		ClienteDao clienteDao = new ClienteDao();
+
 		boolean encontrado = false;
-		for (Cliente cliente : clienteDao.getAll()) {
+		for (Cliente cliente : misClientes) {
 			if (cliente.getId() == codigoCliente) {
 				encontrado = true;
 				break;

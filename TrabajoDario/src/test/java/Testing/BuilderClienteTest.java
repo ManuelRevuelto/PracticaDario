@@ -1,21 +1,26 @@
 package Testing;
 
+import java.io.IOException;
 import org.junit.Test;
 
 public class BuilderClienteTest {
 
 	@Test
-	void comprobarDNI() {
-		
+	private void test() {
 	}
 
 	@Test
-	void comprobarNIE() {
-		
+	public void comprobarDNI(String dni) throws IOException {
+
 	}
 
 	@Test
-	void comprobarEmail() {
-		
+	public void comprobarNIE() {
+
+	}
+
+	@Test
+	public void comprobarEmail(String email) {
+
 	}
 }

@@ -4,10 +4,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import EXCEPCIONES.MisExcepciones;
 import MODEL.Cliente;
 import MODEL.Pedido;
 
 public class BuilderPedidoDao {
+
 	/**
 	 * Metodo para crear un pedido (Patron builder)
 	 * 
@@ -21,53 +23,17 @@ public class BuilderPedidoDao {
 	 * @param misPedidos
 	 * @param misClientes
 	 * @return Pedido
+	 * @throws MisExcepciones
 	 */
-	@SuppressWarnings("deprecation")
 	public static Pedido build(int codigoPedido, Date fechaPedido, Date fechaEsperada, Date fechaEntrega,
-			Boolean estado, String comentarios, int codigoCliente, List<Pedido> misPedidos, List<Cliente> misClientes) {
+			Boolean estado, String comentarios, int codigoCliente, List<Pedido> misPedidos, List<Cliente> misClientes)
+			throws MisExcepciones {
 
 		Calendar calendar = Calendar.getInstance();
-		// Comprueba que la fecha de realizacion del pedido es del dia actual
-		if (calendar.get(Calendar.DAY_OF_MONTH) != fechaPedido.getDate()
-				|| calendar.get(Calendar.MONTH) != fechaPedido.getMonth()
-				|| calendar.get(Calendar.YEAR) != fechaPedido.getYear() + 1900) {
-			System.out
-					.println(fechaPedido.getDate() + " " + fechaPedido.getMonth() + " " + fechaPedido.getYear() + 1900);
-			throw new IllegalArgumentException();
-		}
-
-		// Comprueba que la fecha de esperada del pedido es tres dias antes del dia
-		// actual
-		calendar.add(Calendar.DATE, +3);
-		if (!fechaEsperada.after(calendar.getTime())) {
-			System.out
-					.println(fechaPedido.getDate() + " " + fechaPedido.getMonth() + " " + fechaPedido.getYear() + 1900);
-			throw new IllegalArgumentException();
-		}
-
-		if (codigoPedido < 0) {
-			throw new IllegalArgumentException();
-		}
-
-		// Comprueba que no existan dos pedidos con el mismo id
-		for (Pedido pedido : misPedidos) {
-			if (pedido.getId() == codigoPedido) {
-				throw new IllegalArgumentException();
-			}
-		}
-
-		// Comprueba que el id del codigo del cliente exista
-
-		boolean encontrado = false;
-		for (Cliente cliente : misClientes) {
-			if (cliente.getId() == codigoCliente) {
-				encontrado = true;
-				break;
-			}
-		}
-		if (!encontrado) {
-			throw new IllegalArgumentException();
-		}
+		comprobarFechaPedido(calendar, fechaPedido);
+		comprobarFechaEsperada(calendar, fechaPedido, fechaEsperada);
+		comprobarIdPedidos(codigoPedido, misPedidos);
+		comprobarIdClientes(codigoCliente, misClientes);
 
 		return new Pedido(codigoPedido, fechaPedido, fechaEsperada, fechaEntrega, estado, comentarios, codigoCliente);
 	}
@@ -85,33 +51,87 @@ public class BuilderPedidoDao {
 	 * @param misPedidos
 	 * @param misClientes
 	 * @return Pedido
+	 * @throws MisExcepciones
 	 */
-	
-	@SuppressWarnings("deprecation")
 	public static Pedido buildActualizar(int codigoPedido, Date fechaPedido, Date fechaEsperada, Date fechaEntrega,
-			Boolean estado, String comentarios, int codigoCliente, List<Pedido> misPedidos, List<Cliente> misClientes) {
+			Boolean estado, String comentarios, int codigoCliente, List<Pedido> misPedidos, List<Cliente> misClientes)
+			throws MisExcepciones {
 
 		Calendar calendar = Calendar.getInstance();
-		// Comprueba que la fecha de realizacion del pedido es del dia actual
+		comprobarFechaPedido(calendar, fechaPedido);
+		comprobarFechaEsperada(calendar, fechaPedido, fechaEsperada);
+		comprobarIdClientes(codigoCliente, misClientes);
+
+		return new Pedido(codigoPedido, fechaPedido, fechaEsperada, fechaEntrega, estado, comentarios, codigoCliente);
+	}
+
+	/**
+	 * Metodo para comprobar si la fecha del pedido es la misma que la fecha del dia
+	 * de hoy
+	 * 
+	 * @param calendar
+	 * @param fechaPedido
+	 * @throws MisExcepciones
+	 */
+	@SuppressWarnings("deprecation")
+	public static void comprobarFechaPedido(Calendar calendar, Date fechaPedido) throws MisExcepciones {
 		if (calendar.get(Calendar.DAY_OF_MONTH) != fechaPedido.getDate()
 				|| calendar.get(Calendar.MONTH) != fechaPedido.getMonth()
 				|| calendar.get(Calendar.YEAR) != fechaPedido.getYear() + 1900) {
 			System.out
 					.println(fechaPedido.getDate() + " " + fechaPedido.getMonth() + " " + fechaPedido.getYear() + 1900);
-			throw new IllegalArgumentException();
+			throw new MisExcepciones(555);
 		}
+	}
 
-		// Comprueba que la fecha de esperada del pedido es tres dias antes del dia
-		// actual
+	/**
+	 * Metodo para comprobar si la fecha esperada es tres dias despues de la fecha
+	 * de hoy
+	 * 
+	 * @param calendar
+	 * @param fechaPedido
+	 * @param fechaEsperada
+	 * @throws MisExcepciones
+	 */
+	@SuppressWarnings("deprecation")
+	public static void comprobarFechaEsperada(Calendar calendar, Date fechaPedido, Date fechaEsperada)
+			throws MisExcepciones {
 		calendar.add(Calendar.DATE, +3);
 		if (!fechaEsperada.after(calendar.getTime())) {
 			System.out
 					.println(fechaPedido.getDate() + " " + fechaPedido.getMonth() + " " + fechaPedido.getYear() + 1900);
-			throw new IllegalArgumentException();
+			throw new MisExcepciones(666);
+		}
+	}
+
+	/**
+	 * Metodo para comprobar si el ID del pedido es correcto
+	 * 
+	 * @param codigoPedido
+	 * @param misPedidos
+	 * @throws MisExcepciones
+	 */
+	public static void comprobarIdPedidos(int codigoPedido, List<Pedido> misPedidos) throws MisExcepciones {
+		if (codigoPedido < 0) {
+			throw new MisExcepciones(777);
 		}
 
-		// Comprueba que el id del codigo del cliente exista
+		// Comprueba que no existan dos pedidos con el mismo id
+		for (Pedido pedido : misPedidos) {
+			if (pedido.getId() == codigoPedido) {
+				throw new MisExcepciones(777);
+			}
+		}
+	}
 
+	/**
+	 * Metodo para comprobar si el ID del cliente introducido en los pedidos existe
+	 * 
+	 * @param codigoCliente
+	 * @param misClientes
+	 * @throws MisExcepciones
+	 */
+	public static void comprobarIdClientes(int codigoCliente, List<Cliente> misClientes) throws MisExcepciones {
 		boolean encontrado = false;
 		for (Cliente cliente : misClientes) {
 			if (cliente.getId() == codigoCliente) {
@@ -120,9 +140,8 @@ public class BuilderPedidoDao {
 			}
 		}
 		if (!encontrado) {
-			throw new IllegalArgumentException();
+			throw new MisExcepciones(888);
 		}
-
-		return new Pedido(codigoPedido, fechaPedido, fechaEsperada, fechaEntrega, estado, comentarios, codigoCliente);
 	}
+
 }

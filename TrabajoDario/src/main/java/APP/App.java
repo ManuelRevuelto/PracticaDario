@@ -1,9 +1,7 @@
 package APP;
 
-import java.io.NotActiveException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.DuplicateFormatFlagsException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,6 +10,7 @@ import DAO.BuilderPedidoDao;
 import DAO.ClienteDao;
 import DAO.PedidoDao;
 import DAO.misDocumentos;
+import EXCEPCIONES.MisExcepciones;
 import MODEL.Cliente;
 import MODEL.Pedido;
 
@@ -21,7 +20,7 @@ public class App {
 	static ClienteDao clienteDao = new ClienteDao(misClientes);
 	static PedidoDao pedidoDao = new PedidoDao(misPedidos);
 
-	public static void main(String[] args) throws DuplicateFormatFlagsException, NotActiveException {
+	public static void main(String[] args) throws MisExcepciones {
 		Scanner ky = new Scanner(System.in);
 
 		System.out.println(
@@ -41,9 +40,9 @@ public class App {
 				"************************************** AÑADIR PEDIDOS **************************************");
 		System.out.println();
 
-		Pedido p1 = BuilderPedidoDao.build(1, new Date(120, 10, 26), new Date(120, 10, 30), null, true, "com1", 1,
+		Pedido p1 = BuilderPedidoDao.build(1, new Date(120, 10, 27), new Date(120, 11, 1), null, true, "com1", 1,
 				misPedidos, misClientes);
-		Pedido p2 = BuilderPedidoDao.build(2, new Date(120, 10, 26), new Date(120, 10, 30), null, true, "com2", 2,
+		Pedido p2 = BuilderPedidoDao.build(2, new Date(120, 10, 27), new Date(120, 11, 1), null, true, "com2", 2,
 				misPedidos, misClientes);
 		pedidoDao.guardar(p1);
 		pedidoDao.guardar(p2);
@@ -65,7 +64,7 @@ public class App {
 
 		System.out.print("Que cliente quieres actualizar: ");
 		int idP = ky.nextInt();
-		Pedido p3 = BuilderPedidoDao.buildActualizar(idP, new Date(120, 10, 26), new Date(120, 10, 30), null, true, "com3", 1, misPedidos, misClientes);
+		Pedido p3 = BuilderPedidoDao.buildActualizar(idP, new Date(120, 10, 27), new Date(120, 11, 1), null, true, "com3", 1, misPedidos, misClientes);
 		pedidoDao.actualizar(idP, p3);
 
 		System.out.println();

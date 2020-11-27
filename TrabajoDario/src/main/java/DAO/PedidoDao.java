@@ -16,6 +16,18 @@ public class PedidoDao implements IPedidoDao {
 	public List<Pedido> getAll() {
 		return misPedidos;
 	}
+	
+	@Override
+	public Pedido getById(int id) {
+		Pedido p = null;
+		for (Pedido pedido : misPedidos) {
+			if (pedido.getId() == id) {
+				p = pedido;
+				break;
+			}
+		}
+		return p;
+	}
 
 	@Override
 	public void guardar(Pedido pd) {

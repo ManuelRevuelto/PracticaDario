@@ -1,6 +1,5 @@
 package Testing;
 
-import java.io.IOException;
 import org.junit.Test;
 
 public class BuilderClienteTest {
@@ -10,8 +9,8 @@ public class BuilderClienteTest {
 	}
 
 	@Test
-	public void comprobarDNI(String dni) throws IOException {
-
+	public void comprobarDNI(String dni) {
+		
 	}
 
 	@Test

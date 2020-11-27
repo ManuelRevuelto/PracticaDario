@@ -56,24 +56,12 @@ public class Cliente {
 		return tipoDocumento;
 	}
 
-	public void setTipoDocumento(misDocumentos tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
-	}
-
 	public String getDocumento() {
 		return documento;
 	}
 
-	public void setDocumento(String documento) {
-		this.documento = documento;
-	}
-
 	public String getEmail() {
 		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getPassword() {
@@ -86,10 +74,6 @@ public class Cliente {
 
 	public int getId() {
 		return codigoCliente;
-	}
-
-	public void setId(int codigoCliente) {
-		this.codigoCliente = codigoCliente;
 	}
 
 	public String getNombreCliente() {
@@ -198,9 +182,9 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [email=" + email + ", password" + password + ", codigoCliente=" + codigoCliente + ", nombreCliente="
-				+ nombreCliente + ", nombreContacto=" + nombreContacto + ", apellidoContacto=" + apellidoContacto
-				+ ", telefono=" + telefono + ", fax=" + fax + ", lineaDireccion=" + lineaDireccion
+		return "Cliente [email=" + email + ", password=" + password + ", codigoCliente=" + codigoCliente
+				+ ", nombreCliente=" + nombreCliente + ", nombreContacto=" + nombreContacto + ", apellidoContacto="
+				+ apellidoContacto + ", telefono=" + telefono + ", fax=" + fax + ", lineaDireccion=" + lineaDireccion
 				+ ", lineaDireccion2=" + lineaDireccion2 + ", ciudad=" + ciudad + ", region=" + region + ", pais="
 				+ pais + ", codigoPostal=" + codigoPostal + ", codigoEmpleado=" + codigoEmpleado + ", limiteCredito="
 				+ limiteCredito + "]";

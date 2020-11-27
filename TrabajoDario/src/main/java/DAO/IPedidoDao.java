@@ -7,6 +7,8 @@ import MODEL.Pedido;
 public interface IPedidoDao {
 
 	List<Pedido> getAll();
+	
+	Pedido getById(int id);
 
 	void guardar(Pedido pd);
 

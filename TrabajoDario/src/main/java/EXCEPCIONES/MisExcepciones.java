@@ -9,7 +9,6 @@ public class MisExcepciones extends Exception {
 		this.codigoError = codigoError;
 	}
 
-	@Override
 	public String getMessage() {
 
 		String mensaje = "";

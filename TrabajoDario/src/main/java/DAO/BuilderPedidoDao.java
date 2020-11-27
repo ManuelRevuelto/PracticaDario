@@ -26,41 +26,17 @@ public class BuilderPedidoDao {
 	 * @throws MisExcepciones
 	 */
 	public static Pedido build(int codigoPedido, Date fechaPedido, Date fechaEsperada, Date fechaEntrega,
-			Boolean estado, String comentarios, int codigoCliente, List<Pedido> misPedidos, List<Cliente> misClientes)
-			throws MisExcepciones {
-
-		Calendar calendar = Calendar.getInstance();
-		comprobarFechaPedido(calendar, fechaPedido);
-		comprobarFechaEsperada(calendar, fechaPedido, fechaEsperada);
-		comprobarIdPedidos(codigoPedido, misPedidos);
-		comprobarIdClientes(codigoCliente, misClientes);
-
-		return new Pedido(codigoPedido, fechaPedido, fechaEsperada, fechaEntrega, estado, comentarios, codigoCliente);
-	}
-
-	/**
-	 * Metodo para cuando se actualice un pedido (Patron Builder)
-	 * 
-	 * @param codigoPedido
-	 * @param fechaPedido
-	 * @param fechaEsperada
-	 * @param fechaEntrega
-	 * @param estado
-	 * @param comentarios
-	 * @param codigoCliente
-	 * @param misPedidos
-	 * @param misClientes
-	 * @return Pedido
-	 * @throws MisExcepciones
-	 */
-	public static Pedido buildActualizar(int codigoPedido, Date fechaPedido, Date fechaEsperada, Date fechaEntrega,
-			Boolean estado, String comentarios, int codigoCliente, List<Pedido> misPedidos, List<Cliente> misClientes)
-			throws MisExcepciones {
+			Boolean estado, String comentarios, int codigoCliente, List<Pedido> misPedidos, List<Cliente> misClientes,
+			boolean actualizar) throws MisExcepciones {
 
 		Calendar calendar = Calendar.getInstance();
 		comprobarFechaPedido(calendar, fechaPedido);
 		comprobarFechaEsperada(calendar, fechaPedido, fechaEsperada);
 		comprobarIdClientes(codigoCliente, misClientes);
+
+		if (actualizar = false) {
+			comprobarIdPedidos(codigoPedido, misPedidos);
+		}
 
 		return new Pedido(codigoPedido, fechaPedido, fechaEsperada, fechaEntrega, estado, comentarios, codigoCliente);
 	}
@@ -143,5 +119,4 @@ public class BuilderPedidoDao {
 			throw new MisExcepciones(888);
 		}
 	}
-
 }

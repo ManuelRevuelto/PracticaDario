@@ -27,10 +27,10 @@ public class App {
 				"************************************** AÑADIR CLIENTES **************************************");
 		System.out.println();
 
-		Cliente c1 = BuilderClienteDao.build(misDocumentos.DNI, "25359770W", "email1", "pass1", 1, null, null, null, 0,
-				0, null, null, null, null, null, 0, 0, 0, misClientes);
-		Cliente c2 = BuilderClienteDao.build(misDocumentos.DNI, "56893412P", "email2", "pass2", 2, null, null, null, 0,
-				0, null, null, null, null, null, 0, 0, 0, misClientes);
+		Cliente c1 = BuilderClienteDao.build(misDocumentos.DNI, "2535977W", "email1@gmail.com", "pass1", 1, null, null,
+				null, 0, 0, null, null, null, null, null, 0, 0, 0, misClientes, false);
+		Cliente c2 = BuilderClienteDao.build(misDocumentos.NIE, "X6893412X", "email2@gmail.com", "pass2", 2, null, null,
+				null, 0, 0, null, null, null, null, null, 0, 0, 0, misClientes, false);
 		clienteDao.guardar(c1);
 		clienteDao.guardar(c2);
 		System.out.println("Los clientes han sido añadidos con exito");
@@ -40,10 +40,10 @@ public class App {
 				"************************************** AÑADIR PEDIDOS **************************************");
 		System.out.println();
 
-		Pedido p1 = BuilderPedidoDao.build(1, new Date(120, 10, 27), new Date(120, 11, 1), null, true, "com1", 1,
-				misPedidos, misClientes);
-		Pedido p2 = BuilderPedidoDao.build(2, new Date(120, 10, 27), new Date(120, 11, 1), null, true, "com2", 2,
-				misPedidos, misClientes);
+		Pedido p1 = BuilderPedidoDao.build(1, new Date(120, 10, 27), new Date(120, 11, 2), null, true, "com1", 1,
+				misPedidos, misClientes, false);
+		Pedido p2 = BuilderPedidoDao.build(2, new Date(120, 10, 27), new Date(120, 11, 3), null, true, "com2", 2,
+				misPedidos, misClientes, false);
 		pedidoDao.guardar(p1);
 		pedidoDao.guardar(p2);
 		System.out.println("Los pedidos han sido añadidos con exito");
@@ -54,8 +54,8 @@ public class App {
 
 		System.out.print("Que cliente quieres actualizar: ");
 		int idC = ky.nextInt();
-		Cliente c3 = new Cliente(misDocumentos.DNI, "12345678R", "email3", "pass3", idC, null, null, null, 0, 0, null,
-				null, null, null, null, 0, 0, 0);
+		Cliente c3 = BuilderClienteDao.build(misDocumentos.DNI, "12345678R", "email3@gmail.com", "pass3", idC, null, null, null, 0,
+				0, null, null, null, null, null, 0, 0, 0, misClientes, true);
 		clienteDao.actualizar(idC, c3);
 
 		System.out.println();
@@ -64,7 +64,8 @@ public class App {
 
 		System.out.print("Que cliente quieres actualizar: ");
 		int idP = ky.nextInt();
-		Pedido p3 = BuilderPedidoDao.buildActualizar(idP, new Date(120, 10, 27), new Date(120, 11, 1), null, true, "com3", 1, misPedidos, misClientes);
+		Pedido p3 = BuilderPedidoDao.build(idP, new Date(120, 10, 27), new Date(120, 11, 5), null, true, "com3", 1,
+				misPedidos, misClientes, true);
 		pedidoDao.actualizar(idP, p3);
 
 		System.out.println();
@@ -81,7 +82,6 @@ public class App {
 		System.out.println();
 
 		misPedidos = pedidoDao.getAll();
-
 		for (Pedido v : misPedidos) {
 			System.out.println(v.toString());
 		}

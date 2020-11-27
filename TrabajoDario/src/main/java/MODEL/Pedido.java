@@ -32,32 +32,16 @@ public class Pedido {
 		return codigoPedido;
 	}
 
-	public void setCodigoPedido(int codigoPedido) {
-		this.codigoPedido = codigoPedido;
-	}
-
 	public Date getFechaPedido() {
 		return fechaPedido;
-	}
-
-	public void setFechaPedido(Date fechaPedido) {
-		this.fechaPedido = fechaPedido;
 	}
 
 	public Date getFechaEsperada() {
 		return fechaEsperada;
 	}
 
-	public void setFechaEsperada(Date fechaEsperada) {
-		this.fechaEsperada = fechaEsperada;
-	}
-
 	public Date getFechaEntrega() {
 		return fechaEntrega;
-	}
-
-	public void setFechaEntrega(Date fechaEntrega) {
-		this.fechaEntrega = fechaEntrega;
 	}
 
 	public boolean getEstado() {
@@ -78,10 +62,6 @@ public class Pedido {
 
 	public int getCodigoCliente() {
 		return codigoCliente;
-	}
-
-	public void setCodigoCliente(int codigoCliente) {
-		this.codigoCliente = codigoCliente;
 	}
 
 	@Override

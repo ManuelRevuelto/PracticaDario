@@ -66,11 +66,12 @@ public class Login extends JFrame implements ActionListener {
 									.addComponent(password_text, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
 									.addGap(18)
 									.addComponent(ver_CheckBox))))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(message, GroupLayout.PREFERRED_SIZE, 217, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(submit, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(23, Short.MAX_VALUE))
+						.addComponent(message, GroupLayout.PREFERRED_SIZE, 217, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(59, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+					.addContainerGap(249, Short.MAX_VALUE)
+					.addComponent(submit, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -84,14 +85,14 @@ public class Login extends JFrame implements ActionListener {
 						.addComponent(password_label, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
 						.addComponent(password_text, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 						.addComponent(ver_CheckBox))
-					.addGap(99)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(submit, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-						.addComponent(message, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)))
+					.addGap(27)
+					.addComponent(submit, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+					.addGap(30)
+					.addComponent(message, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE))
 		);
 		panel.setLayout(gl_panel);
 		setTitle("Login page");
-		setSize(450, 350);
+		setSize(451, 259);
 		setVisible(true);
 	}
 

@@ -8,7 +8,7 @@ import EXCEPCIONES.MisExcepciones;
 import MODEL.Cliente;
 
 public class BuilderClienteDao {
-	
+
 	/**
 	 * Metodo para crear un cliente (Patron builder)
 	 * 
@@ -32,13 +32,15 @@ public class BuilderClienteDao {
 	public static Cliente build(misDocumentos tipoDocumento, String documento, String email, String password,
 			int codigoCliente, String nombreCliente, String nombreContacto, String apellidoContacto, int telefono,
 			int fax, String lineaDireccion, String lineaDireccion2, String ciudad, String region, String pais,
-			int codigoPostal, int codigoEmpleado, int limiteCredito, List<Cliente> misClientes) throws MisExcepciones {
+			int codigoPostal, int codigoEmpleado, int limiteCredito, List<Cliente> misClientes, boolean actualizar)
+			throws MisExcepciones {
 
 		ClienteDao clienteDao = new ClienteDao(misClientes);
-
-		validarId(clienteDao, limiteCredito);
 		validarDocumento(tipoDocumento, documento);
-		/* validarEmail(email); */
+		validarEmail(email);
+		if (actualizar = false) {
+			validarId(clienteDao, codigoCliente);
+		}
 
 		return new Cliente(tipoDocumento, documento, email, password, codigoCliente, nombreCliente, nombreContacto,
 				apellidoContacto, telefono, fax, lineaDireccion, lineaDireccion2, ciudad, region, pais, codigoPostal,
@@ -87,7 +89,19 @@ public class BuilderClienteDao {
 				throw new MisExcepciones(222);
 			}
 		} else {
-
+			int caracterASCII = 0;
+			if (documento.length() == 9 && Character.isLetter(documento.charAt(8))
+					&& Character.isLetter(documento.charAt(0))) {
+				for (int i = 1; i < documento.length() - 1; i++) {
+					caracterASCII = documento.charAt(i);
+					if (caracterASCII > 47 && caracterASCII < 58) {
+					} else {
+						throw new MisExcepciones(333);
+					}
+				}
+			} else {
+				throw new MisExcepciones(333);
+			}
 		}
 	}
 
@@ -98,8 +112,7 @@ public class BuilderClienteDao {
 	 * @throws MisExcepciones
 	 */
 	public static void validarEmail(String email) throws MisExcepciones {
-		Pattern pattern = Pattern
-				.compile("(\\.[_A-Za-z0-9-]+)+[@{1}]" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		Pattern pattern = Pattern.compile("[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 		Matcher mather = pattern.matcher(email);
 
 		if (mather.find() == false) {

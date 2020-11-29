@@ -8,13 +8,13 @@ public class Pedido {
 	private Date fechaPedido;
 	private Date fechaEsperada;
 	private Date fechaEntrega;
-	private boolean estado;
+	private misEstados estado;
 	private String comentarios;
 	private int codigoCliente;
 
 	////////
 
-	public Pedido(int codigoPedido, Date fechaPedido, Date fechaEsperada, Date fechaEntrega, boolean estado,
+	public Pedido(int codigoPedido, Date fechaPedido, Date fechaEsperada, Date fechaEntrega, misEstados estado,
 			String comentarios, int codigoCliente) {
 		super();
 		this.codigoPedido = codigoPedido;
@@ -44,11 +44,11 @@ public class Pedido {
 		return fechaEntrega;
 	}
 
-	public boolean getEstado() {
+	public misEstados getEstado() {
 		return estado;
 	}
 
-	public void setEstado(boolean estado) {
+	public void setEstado(misEstados estado) {
 		this.estado = estado;
 	}
 

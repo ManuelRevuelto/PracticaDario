@@ -7,6 +7,7 @@ import java.util.List;
 import EXCEPCIONES.MisExcepciones;
 import MODEL.Cliente;
 import MODEL.Pedido;
+import MODEL.misEstados;
 
 public class BuilderPedidoDao {
 
@@ -26,7 +27,7 @@ public class BuilderPedidoDao {
 	 * @throws MisExcepciones
 	 */
 	public static Pedido build(int codigoPedido, Date fechaPedido, Date fechaEsperada, Date fechaEntrega,
-			Boolean estado, String comentarios, int codigoCliente, List<Pedido> misPedidos, List<Cliente> misClientes,
+			misEstados estado, String comentarios, int codigoCliente, List<Pedido> misPedidos, List<Cliente> misClientes,
 			boolean actualizar) throws MisExcepciones {
 
 		Calendar calendar = Calendar.getInstance();

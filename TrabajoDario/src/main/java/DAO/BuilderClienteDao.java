@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import EXCEPCIONES.MisExcepciones;
 import MODEL.Cliente;
+import MODEL.misDocumentos;
 
 public class BuilderClienteDao {
 
@@ -13,7 +14,7 @@ public class BuilderClienteDao {
 	 * Metodo para crear un cliente (Patron builder)
 	 * 
 	 * @param codigoCliente
-	 * @param nombreCliente
+	 * @param Username
 	 * @param nombreContacto
 	 * @param apellidoContacto
 	 * @param telefono
@@ -30,7 +31,7 @@ public class BuilderClienteDao {
 	 * @throws MisExcepciones
 	 */
 	public static Cliente build(misDocumentos tipoDocumento, String documento, String email, String password,
-			int codigoCliente, String nombreCliente, String nombreContacto, String apellidoContacto, int telefono,
+			int codigoCliente, String Username, String nombreContacto, String apellidoContacto, int telefono,
 			int fax, String lineaDireccion, String lineaDireccion2, String ciudad, String region, String pais,
 			int codigoPostal, int codigoEmpleado, int limiteCredito, List<Cliente> misClientes, boolean actualizar)
 			throws MisExcepciones {
@@ -42,7 +43,7 @@ public class BuilderClienteDao {
 			validarId(clienteDao, codigoCliente);
 		}
 
-		return new Cliente(tipoDocumento, documento, email, password, codigoCliente, nombreCliente, nombreContacto,
+		return new Cliente(tipoDocumento, documento, email, password, codigoCliente, Username, nombreContacto,
 				apellidoContacto, telefono, fax, lineaDireccion, lineaDireccion2, ciudad, region, pais, codigoPostal,
 				codigoEmpleado, limiteCredito);
 	}

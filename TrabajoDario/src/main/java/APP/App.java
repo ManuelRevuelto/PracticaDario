@@ -9,10 +9,11 @@ import DAO.BuilderClienteDao;
 import DAO.BuilderPedidoDao;
 import DAO.ClienteDao;
 import DAO.PedidoDao;
-import DAO.misDocumentos;
 import EXCEPCIONES.MisExcepciones;
 import MODEL.Cliente;
 import MODEL.Pedido;
+import MODEL.misDocumentos;
+import MODEL.misEstados;
 
 public class App {
 	static List<Cliente> misClientes = new ArrayList<Cliente>();
@@ -20,6 +21,7 @@ public class App {
 	static ClienteDao clienteDao = new ClienteDao(misClientes);
 	static PedidoDao pedidoDao = new PedidoDao(misPedidos);
 
+	@SuppressWarnings({ "deprecation", "resource" })
 	public static void main(String[] args) throws MisExcepciones {
 		Scanner ky = new Scanner(System.in);
 
@@ -27,9 +29,9 @@ public class App {
 				"************************************** AÑADIR CLIENTES **************************************");
 		System.out.println();
 
-		Cliente c1 = BuilderClienteDao.build(misDocumentos.DNI, "2535977W", "email1@gmail.com", "pass1", 1, null, null,
+		Cliente c1 = BuilderClienteDao.build(misDocumentos.DNI, "25359770W", "email1@gmail.com", "pass1", 1, "nom1", null,
 				null, 0, 0, null, null, null, null, null, 0, 0, 0, misClientes, false);
-		Cliente c2 = BuilderClienteDao.build(misDocumentos.NIE, "X6893412X", "email2@gmail.com", "pass2", 2, null, null,
+		Cliente c2 = BuilderClienteDao.build(misDocumentos.NIE, "X6893412X", "email2@gmail.com", "pass2", 2, "nom2", null,
 				null, 0, 0, null, null, null, null, null, 0, 0, 0, misClientes, false);
 		clienteDao.guardar(c1);
 		clienteDao.guardar(c2);
@@ -40,9 +42,9 @@ public class App {
 				"************************************** AÑADIR PEDIDOS **************************************");
 		System.out.println();
 
-		Pedido p1 = BuilderPedidoDao.build(1, new Date(120, 10, 27), new Date(120, 11, 2), null, true, "com1", 1,
+		Pedido p1 = BuilderPedidoDao.build(1, new Date(120, 10, 28), new Date(120, 11, 2), null, misEstados.Entregado, "com1", 1,
 				misPedidos, misClientes, false);
-		Pedido p2 = BuilderPedidoDao.build(2, new Date(120, 10, 27), new Date(120, 11, 3), null, true, "com2", 2,
+		Pedido p2 = BuilderPedidoDao.build(2, new Date(120, 10, 28), new Date(120, 11, 3), null, misEstados.Entregado, "com2", 2,
 				misPedidos, misClientes, false);
 		pedidoDao.guardar(p1);
 		pedidoDao.guardar(p2);
@@ -64,7 +66,7 @@ public class App {
 
 		System.out.print("Que cliente quieres actualizar: ");
 		int idP = ky.nextInt();
-		Pedido p3 = BuilderPedidoDao.build(idP, new Date(120, 10, 27), new Date(120, 11, 5), null, true, "com3", 1,
+		Pedido p3 = BuilderPedidoDao.build(idP, new Date(120, 10, 28), new Date(120, 11, 5), null, misEstados.Entregado, "com3", 1,
 				misPedidos, misClientes, true);
 		pedidoDao.actualizar(idP, p3);
 

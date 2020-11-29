@@ -46,12 +46,8 @@ public class MisExcepciones extends Exception {
 			System.out.println("El ID del clientes introducido en el pedido no existe");
 			break;
 		case 999:
-			mensaje = "";
-			System.out.println("");
-			break;
-		case 1000:
-			mensaje = "";
-			System.out.println("");
+			mensaje = "Compruebe el nombre de usuario o la contraseña introducida y vuelva a probar";
+			System.out.println("Ha introducido mas el nombre de usuario o la contraseña");
 			break;
 		}
 

@@ -1,7 +1,5 @@
 package MODEL;
 
-import DAO.misDocumentos;
-
 public class Cliente {
 
 	private misDocumentos tipoDocumento;
@@ -10,7 +8,7 @@ public class Cliente {
 	private String email;
 	private String password;
 	private int codigoCliente;
-	private String nombreCliente;
+	private String Username;
 	private String nombreContacto;
 	private String apellidoContacto;
 	private int telefono;
@@ -27,7 +25,7 @@ public class Cliente {
 	///////// Constructor de clientes
 
 	public Cliente(misDocumentos tipoDocumento, String documento, String email, String password, int codigoCliente,
-			String nombreCliente, String nombreContacto, String apellidoContacto, int telefono, int fax,
+			String Username, String nombreContacto, String apellidoContacto, int telefono, int fax,
 			String lineaDireccion, String lineaDireccion2, String ciudad, String region, String pais, int codigoPostal,
 			int codigoEmpleado, int limiteCredito) {
 		super();
@@ -36,7 +34,7 @@ public class Cliente {
 		this.email = email;
 		this.password = password;
 		this.codigoCliente = codigoCliente;
-		this.nombreCliente = nombreCliente;
+		this.Username = Username;
 		this.nombreContacto = nombreContacto;
 		this.apellidoContacto = apellidoContacto;
 		this.telefono = telefono;
@@ -76,12 +74,12 @@ public class Cliente {
 		return codigoCliente;
 	}
 
-	public String getNombreCliente() {
-		return nombreCliente;
+	public String getUsername() {
+		return Username;
 	}
 
-	public void setNombreCliente(String nombreCliente) {
-		this.nombreCliente = nombreCliente;
+	public void setUsername(String Username) {
+		this.Username = Username;
 	}
 
 	public String getNombreContacto() {
@@ -182,9 +180,9 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [email=" + email + ", password=" + password + ", codigoCliente=" + codigoCliente
-				+ ", nombreCliente=" + nombreCliente + ", nombreContacto=" + nombreContacto + ", apellidoContacto="
-				+ apellidoContacto + ", telefono=" + telefono + ", fax=" + fax + ", lineaDireccion=" + lineaDireccion
+		return "Cliente [email=" + email + ", password=" + password + ", codigoCliente=" + codigoCliente + ", Username="
+				+ Username + ", nombreContacto=" + nombreContacto + ", apellidoContacto=" + apellidoContacto
+				+ ", telefono=" + telefono + ", fax=" + fax + ", lineaDireccion=" + lineaDireccion
 				+ ", lineaDireccion2=" + lineaDireccion2 + ", ciudad=" + ciudad + ", region=" + region + ", pais="
 				+ pais + ", codigoPostal=" + codigoPostal + ", codigoEmpleado=" + codigoEmpleado + ", limiteCredito="
 				+ limiteCredito + "]";

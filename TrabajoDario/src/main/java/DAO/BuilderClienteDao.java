@@ -39,6 +39,7 @@ public class BuilderClienteDao {
 		ClienteDao clienteDao = new ClienteDao(misClientes);
 		validarDocumento(tipoDocumento, documento);
 		validarEmail(email);
+		validarNomApTelef(clienteDao, nombreContacto, apellidoContacto, telefono);
 		if (actualizar = false) {
 			validarId(clienteDao, codigoCliente);
 		}
@@ -113,11 +114,20 @@ public class BuilderClienteDao {
 	 * @throws MisExcepciones
 	 */
 	public static void validarEmail(String email) throws MisExcepciones {
-		Pattern pattern = Pattern.compile("[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 		Matcher mather = pattern.matcher(email);
 
 		if (mather.find() == false) {
 			throw new MisExcepciones(444);
+		}
+	}
+	
+	public static void validarNomApTelef(ClienteDao clienteDao, String nombre, String apellido, int telefono) throws MisExcepciones {
+		for (Cliente cliente : clienteDao.getAll()) {
+			if (cliente.getTelefono() == telefono && cliente.getApellidoContacto().equals(apellido) && cliente.getNombreContacto().equals(nombre)) {
+				throw new MisExcepciones(111);
+			}
 		}
 	}
 

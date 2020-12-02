@@ -2,6 +2,10 @@ package GUI;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +15,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import BBDD.Bbdd;
 import DAO.BuilderClienteDao;
 import DAO.BuilderPedidoDao;
 import DAO.ClienteDao;
@@ -37,36 +42,28 @@ public class Login extends JFrame implements ActionListener {
 	 * 
 	 * @param args
 	 * @throws MisExcepciones
+	 * @throws SQLException
 	 */
-	@SuppressWarnings("deprecation")
-	public static void main(String[] args) throws MisExcepciones {
-		Cliente c1 = BuilderClienteDao.build(misDocumentos.DNI, "25359770W", "email1@gmail.com", "pass1", 1, "nom1",
-				"nom1", "nom1", 0, 0, null, null, null, null, null, 0, 0, 0, misClientes, false);
-		Cliente c2 = BuilderClienteDao.build(misDocumentos.NIE, "X6893412X", "email2@gmail.com", "pass2", 2, "nom2",
-				"nom2", "nom2", 0, 0, null, null, null, null, null, 0, 0, 0, misClientes, false);
-		clienteDao.guardar(c1);
-		clienteDao.guardar(c2);
+	public static void main(String[] args) throws MisExcepciones, SQLException {
+		Connection c = Bbdd.conexCreate();
+		/* Bbdd.allClientes(c); */
 
-		Pedido p1 = BuilderPedidoDao.build(1, new Date(120, 10, 28), new Date(120, 11, 2), null, misEstados.Entregado, "com1", 1,
-				misPedidos, misClientes, false);
-		Pedido p2 = BuilderPedidoDao.build(2, new Date(120, 10, 28), new Date(120, 11, 3), null, misEstados.Entregado, "com2", 2,
-				misPedidos, misClientes, false);
-		pedidoDao.guardar(p1);
-		pedidoDao.guardar(p2);
-		new Login(args);
+		new Login(args, c);
 	}
 
 	/**
 	 * Create the frame.
 	 * 
+	 * @param c
+	 * 
 	 * @throws MisExcepciones
 	 */
-	public Login(final String[] args) throws MisExcepciones {
+	public Login(final String[] args, final Connection c) throws MisExcepciones {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panel);
-		
+
 		// Message Label
 		JLabel message = new JLabel();
 
@@ -99,26 +96,46 @@ public class Login extends JFrame implements ActionListener {
 		btnButton.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
+
 				try {
+					//El objeto utilizado para ejecutar una declaración SQL estática y devolver los resultados que produce. 
+					Statement stm = null;
+					//
+					ResultSet rs = null;
 					boolean encontrado = false;
-					for (Cliente cliente : misClientes) {
-						if (cliente.getUsername().equals(userName_text.getText())
-								&& cliente.getPassword().equals(password_text.getText())) {
-							encontrado = true;
-							dispose();
-							CreateUser.main(args);
-							break;
+					try {
+						stm = c.createStatement();
+					} catch (SQLException e1) {
+						System.out.println("Error al crear el statement");
+						e1.printStackTrace();
+					}
+					if (stm != null) {
+						try {
+							rs = stm.executeQuery("SELECT * FROM jardineria.cliente");
+							while (rs.next()) {
+
+								if (rs.getString("nombre_contacto").equals(userName_text.getText())
+										&& rs.getString("username").equals(password_text.getText())) {
+									encontrado = true;
+									dispose();
+									Main.main(args);
+									break;
+								}
+							}
+						} catch (SQLException e1) {
+							e1.printStackTrace();
 						}
 					}
+
 					if (!encontrado) {
-						userName_text.setText(null);
-						password_text.setText(null);
+						userName_text = null;
+						password_text = null;
 						throw new MisExcepciones(999);
 					}
-
-				} catch (MisExcepciones e1) {
-					e1.printStackTrace();
+				} catch (Exception e2) {
+					e2.printStackTrace();
 				}
+
 			}
 		});
 		btnButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -159,7 +176,7 @@ public class Login extends JFrame implements ActionListener {
 				.addComponent(message, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)));
 		panel.setLayout(gl_panel);
 		setTitle("Login page");
-		setSize(451, 259);
+		setSize(450, 268);
 		setVisible(true);
 	}
 
@@ -167,4 +184,22 @@ public class Login extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 	}
+
+	@SuppressWarnings("deprecation")
+	public static void fakeBbDd() throws MisExcepciones {
+		Cliente c1 = BuilderClienteDao.build(misDocumentos.DNI, "25359770W", "email1@gmail.com", "pass1", 1, "nom1",
+				"nom1", "nom1", 0, 0, null, null, null, null, null, 0, 0, 0, misClientes, false);
+		Cliente c2 = BuilderClienteDao.build(misDocumentos.NIE, "X6893412X", "email2@gmail.com", "pass2", 2, "nom2",
+				"nom2", "nom2", 0, 0, null, null, null, null, null, 0, 0, 0, misClientes, false);
+		clienteDao.guardar(c1);
+		clienteDao.guardar(c2);
+
+		Pedido p1 = BuilderPedidoDao.build(1, new Date(120, 11, 1), new Date(120, 11, 5), null, misEstados.Entregado,
+				"com1", 1, misPedidos, misClientes, false);
+		Pedido p2 = BuilderPedidoDao.build(2, new Date(120, 11, 1), new Date(120, 11, 5), null, misEstados.Entregado,
+				"com2", 2, misPedidos, misClientes, false);
+		pedidoDao.guardar(p1);
+		pedidoDao.guardar(p2);
+	}
+
 }

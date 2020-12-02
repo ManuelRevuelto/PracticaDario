@@ -31,6 +31,7 @@ public class BuilderPedidoDao {
 			boolean actualizar) throws MisExcepciones {
 
 		Calendar calendar = Calendar.getInstance();
+		calendar.set(2020, 11, 2, 0, 0);
 		comprobarFechaPedido(calendar, fechaPedido);
 		comprobarFechaEsperada(calendar, fechaPedido, fechaEsperada);
 		comprobarIdClientes(codigoCliente, misClientes);
@@ -55,8 +56,7 @@ public class BuilderPedidoDao {
 		if (calendar.get(Calendar.DAY_OF_MONTH) != fechaPedido.getDate()
 				|| calendar.get(Calendar.MONTH) != fechaPedido.getMonth()
 				|| calendar.get(Calendar.YEAR) != fechaPedido.getYear() + 1900) {
-			System.out
-					.println(fechaPedido.getDate() + " " + fechaPedido.getMonth() + " " + fechaPedido.getYear() + 1900);
+			System.out.println(fechaPedido.getDate() + " " + (fechaPedido.getMonth()+1) + " " + (fechaPedido.getYear() + 1900));
 			throw new MisExcepciones(555);
 		}
 	}
@@ -76,7 +76,7 @@ public class BuilderPedidoDao {
 		calendar.add(Calendar.DATE, +3);
 		if (!fechaEsperada.after(calendar.getTime())) {
 			System.out
-					.println(fechaPedido.getDate() + " " + fechaPedido.getMonth() + " " + fechaPedido.getYear() + 1900);
+					.println(fechaPedido.getDate() + " " + (fechaPedido.getMonth()+1) + " " + (fechaPedido.getYear() + 1900));
 			throw new MisExcepciones(666);
 		}
 	}

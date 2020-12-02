@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import DAO.BuilderClienteDao;
+import DAO.ClienteDao;
 import EXCEPCIONES.MisExcepciones;
 import MODEL.Cliente;
 import MODEL.misDocumentos;
@@ -32,6 +33,7 @@ import javax.swing.JComboBox;
 @SuppressWarnings("serial")
 public class CreateUser extends JFrame {
 	List<Cliente> misClientes = new ArrayList<Cliente>();
+	ClienteDao clienteDao = new ClienteDao(misClientes);
 	private JPanel contentPane;
 	private JTextField textField_Nombre;
 	private JTextField textField_IdCliente;
@@ -114,8 +116,12 @@ public class CreateUser extends JFrame {
 
 		final JComboBox<misDocumentos> JComboBox_TipoDocumento = new JComboBox<misDocumentos>();
 		JComboBox_TipoDocumento.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		JComboBox_TipoDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new misDocumentos[] {misDocumentos.DNI,misDocumentos.NIE}));
+		JComboBox_TipoDocumento.setModel(
+				new javax.swing.DefaultComboBoxModel<>(new misDocumentos[] { misDocumentos.DNI, misDocumentos.NIE }));
 
+		if (JComboBox_TipoDocumento.getName() == "DNI") {
+
+		}
 		JLabel lblDocumento = new JLabel("Documento");
 		lblDocumento.setFont(new Font("Tahoma", Font.PLAIN, 16));
 
@@ -264,46 +270,38 @@ public class CreateUser extends JFrame {
 		JButton btnNewButton = new JButton("CREAR");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (textField_ApellidoCliente.getText() == null || textField_Ciudad.getText() == null
-						|| textField_CodigoEmpleado.getText() == null || textField_CodigoPostal.getText() == null
-						|| textField_Direccion1.getText() == null || textField_Direccion2.getText() == null
-						|| textField_Documento.getText() == null || textField_Email.getText() == null
-						|| textField_FAX.getText() == null || textField_IdCliente.getText() == null
-						|| textField_LimiteCredito.getText() == null || textField_Nombre.getText() == null
-						|| textField_NombreCliente.getText() == null || textField_Pais.getText() == null
-						|| textField_Password.getText() == null || textField_Region.getText() == null
-						|| textField_Telefono.getText() == null) {
-					lblNewLabel.setVisible(true);
-				} else {
-					try {
-						BuilderClienteDao.build(misDocumentos.DNI, textField_Documento.getText(),
-								textField_Email.getText(), textField_Password.getText(), 1, textField_Nombre.getText(),
-								textField_NombreCliente.getText(), textField_ApellidoCliente.getText(), 0, 0,
-								textField_Direccion1.getText(), textField_Direccion2.getText(),
-								textField_Ciudad.getText(), textField_Region.getText(), textField_Pais.getText(), 0, 0,
-								0, misClientes, false);
 
-						textField_ApellidoCliente.setText(null);
-						textField_Ciudad.setText(null);
-						textField_CodigoEmpleado.setText(null);
-						textField_CodigoPostal.setText(null);
-						textField_Direccion1.setText(null);
-						textField_Direccion2.setText(null);
-						textField_Documento.setText(null);
-						textField_Email.setText(null);
-						textField_FAX.setText(null);
-						textField_IdCliente.setText(null);
-						textField_LimiteCredito.setText(null);
-						textField_Nombre.setText(null);
-						textField_NombreCliente.setText(null);
-						textField_Pais.setText(null);
-						textField_Password.setText(null);
-						textField_Region.setText(null);
-						textField_Telefono.setText(null);
+				try {
 
-					} catch (MisExcepciones e1) {
-						e1.printStackTrace();
-					}
+					Cliente cl = BuilderClienteDao.build(JComboBox_TipoDocumento.getItemAt(1),
+							textField_Documento.getText(), textField_Email.getText(), textField_Password.getText(), 1,
+							textField_Nombre.getText(), textField_NombreCliente.getText(),
+							textField_ApellidoCliente.getText(), 0, 0, textField_Direccion1.getText(),
+							textField_Direccion2.getText(), textField_Ciudad.getText(), textField_Region.getText(),
+							textField_Pais.getText(), 0, 0, 0, misClientes, false);
+
+					textField_ApellidoCliente.setText(null);
+					textField_Ciudad.setText(null);
+					textField_CodigoEmpleado.setText(null);
+					textField_CodigoPostal.setText(null);
+					textField_Direccion1.setText(null);
+					textField_Direccion2.setText(null);
+					textField_Documento.setText(null);
+					textField_Email.setText(null);
+					textField_FAX.setText(null);
+					textField_IdCliente.setText(null);
+					textField_LimiteCredito.setText(null);
+					textField_Nombre.setText(null);
+					textField_NombreCliente.setText(null);
+					textField_Pais.setText(null);
+					textField_Password.setText(null);
+					textField_Region.setText(null);
+					textField_Telefono.setText(null);
+					clienteDao.guardar(cl);
+
+				} catch (MisExcepciones e1) {
+					e1.printStackTrace();
+
 				}
 			}
 		});

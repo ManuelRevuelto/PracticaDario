@@ -29,12 +29,16 @@ public class App {
 				"************************************** AÑADIR CLIENTES **************************************");
 		System.out.println();
 
-		Cliente c1 = BuilderClienteDao.build(misDocumentos.DNI, "25359770W", "email1@gmail.com", "pass1", 1, "nom1", null,
-				null, 0, 0, null, null, null, null, null, 0, 0, 0, misClientes, false);
-		Cliente c2 = BuilderClienteDao.build(misDocumentos.NIE, "X6893412X", "email2@gmail.com", "pass2", 2, "nom2", null,
-				null, 0, 0, null, null, null, null, null, 0, 0, 0, misClientes, false);
+		Cliente c1 = BuilderClienteDao.build(misDocumentos.DNI, "25359770W", "email1@gmail.com", "pass1", 1, "nom1", "Carlos",
+				"si", 601393403, 0, null, null, null, null, null, 0, 0, 0, misClientes, false);
+		Cliente c2 = BuilderClienteDao.build(misDocumentos.NIE, "X6893412X", "email2@gmail.com", "pass2", 2, "nom2", "Carlos",
+				"si", 601393403, 0, null, null, null, null, null, 0, 0, 0, misClientes, false);
+		Cliente c4 = BuilderClienteDao.build(misDocumentos.NIE, "X6893412X", "email2@gmail.com", "pass2", 2, "nom2", "Carlos",
+				"si", 601393403, 0, null, null, null, null, null, 0, 0, 0, misClientes, false);
 		clienteDao.guardar(c1);
 		clienteDao.guardar(c2);
+		clienteDao.guardar(c4);
+		
 		System.out.println("Los clientes han sido añadidos con exito");
 
 		System.out.println();
@@ -42,9 +46,9 @@ public class App {
 				"************************************** AÑADIR PEDIDOS **************************************");
 		System.out.println();
 
-		Pedido p1 = BuilderPedidoDao.build(1, new Date(120, 10, 28), new Date(120, 11, 2), null, misEstados.Entregado, "com1", 1,
+		Pedido p1 = BuilderPedidoDao.build(1, new Date(120, 11, 2), new Date(120, 11, 6), null, misEstados.Entregado, "com1", 1,
 				misPedidos, misClientes, false);
-		Pedido p2 = BuilderPedidoDao.build(2, new Date(120, 10, 28), new Date(120, 11, 3), null, misEstados.Entregado, "com2", 2,
+		Pedido p2 = BuilderPedidoDao.build(2, new Date(120, 11, 2), new Date(120, 11, 6), null, misEstados.Entregado, "com2", 2,
 				misPedidos, misClientes, false);
 		pedidoDao.guardar(p1);
 		pedidoDao.guardar(p2);
@@ -64,9 +68,9 @@ public class App {
 		System.out.println(
 				"************************************** ACTUALIZAR PEDIDOS **************************************");
 
-		System.out.print("Que cliente quieres actualizar: ");
+		System.out.print("Que pedido quieres actualizar: ");
 		int idP = ky.nextInt();
-		Pedido p3 = BuilderPedidoDao.build(idP, new Date(120, 10, 28), new Date(120, 11, 5), null, misEstados.Entregado, "com3", 1,
+		Pedido p3 = BuilderPedidoDao.build(idP, new Date(120, 11, 2), new Date(120, 11, 7), null, misEstados.Entregado, "com3", 1,
 				misPedidos, misClientes, true);
 		pedidoDao.actualizar(idP, p3);
 

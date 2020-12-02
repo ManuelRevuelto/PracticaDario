@@ -1,5 +1,6 @@
 package Testing;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class BuilderClienteTest {
@@ -10,7 +11,6 @@ public class BuilderClienteTest {
 
 	@Test
 	public void comprobarDNI(String dni) {
-		
 	}
 
 	@Test

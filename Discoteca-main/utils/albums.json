@@ -1,0 +1,30 @@
+[{
+	"artista":"The Smashing Pumpkins",
+	"nombre":"Siamese Dream",
+	"anno":"1992",
+	"formato": "VINILO"
+},
+{
+	"artista":"Nine inch nails",
+	"nombre":"The Downward Spiral",
+	"anno":"1994",
+	"formato": "VINILO"
+},
+{
+	"artista":"The Cure",
+	"nombre":"Desintegration",
+	"anno":"1989",
+	"formato": "CD"
+},
+{
+	"artista":"Ty Seagal",
+	"nombre":"Ty Seagal",
+	"anno":"2018",
+	"formato": "CD"
+},
+{
+	"artista":"Siniestro Total",
+	"nombre":"Menos mal que nos queda Portugal",
+	"anno":"1984",
+	"formato": "CASSETTE"
+}]

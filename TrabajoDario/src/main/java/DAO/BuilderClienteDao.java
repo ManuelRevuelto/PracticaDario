@@ -31,9 +31,9 @@ public class BuilderClienteDao {
 	 * @throws MisExcepciones
 	 */
 	public static Cliente build(misDocumentos tipoDocumento, String documento, String email, String password,
-			int codigoCliente, String Username, String nombreContacto, String apellidoContacto, int telefono,
-			int fax, String lineaDireccion, String lineaDireccion2, String ciudad, String region, String pais,
-			int codigoPostal, int codigoEmpleado, int limiteCredito, List<Cliente> misClientes, boolean actualizar)
+			int codigoCliente, String Username, String nombreContacto, String apellidoContacto, int telefono, int fax,
+			String lineaDireccion, String lineaDireccion2, String ciudad, String region, String pais, int codigoPostal,
+			int codigoEmpleado, int limiteCredito, List<Cliente> misClientes, boolean actualizar)
 			throws MisExcepciones {
 
 		ClienteDao clienteDao = new ClienteDao(misClientes);
@@ -76,13 +76,15 @@ public class BuilderClienteDao {
 	 * @param documento
 	 * @throws MisExcepciones
 	 */
-	public static void validarDocumento(misDocumentos tipoDocumento, String documento) throws MisExcepciones {
+	public static boolean validarDocumento(misDocumentos tipoDocumento, String documento) throws MisExcepciones {
+		boolean bool = false;
 		if (tipoDocumento == misDocumentos.DNI) {
 			int caracterASCII = 0;
 			if (documento.length() == 9 && Character.isLetter(documento.charAt(8))) {
 				for (int i = 0; i < documento.length() - 1; i++) {
 					caracterASCII = documento.charAt(i);
 					if (caracterASCII > 47 && caracterASCII < 58) {
+						bool = true;
 					} else {
 						throw new MisExcepciones(222);
 					}
@@ -97,6 +99,7 @@ public class BuilderClienteDao {
 				for (int i = 1; i < documento.length() - 1; i++) {
 					caracterASCII = documento.charAt(i);
 					if (caracterASCII > 47 && caracterASCII < 58) {
+						bool = true;
 					} else {
 						throw new MisExcepciones(333);
 					}
@@ -105,6 +108,7 @@ public class BuilderClienteDao {
 				throw new MisExcepciones(333);
 			}
 		}
+		return bool;
 	}
 
 	/**
@@ -113,19 +117,23 @@ public class BuilderClienteDao {
 	 * @param email
 	 * @throws MisExcepciones
 	 */
-	public static void validarEmail(String email) throws MisExcepciones {
-		Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+	public static boolean validarEmail(String email) throws MisExcepciones {
+		boolean bool = false;
+		Pattern pattern = Pattern.compile(
+				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 		Matcher mather = pattern.matcher(email);
 
 		if (mather.find() == false) {
 			throw new MisExcepciones(444);
 		}
+		return bool;
 	}
-	
-	public static void validarNomApTelef(ClienteDao clienteDao, String nombre, String apellido, int telefono) throws MisExcepciones {
+
+	public static void validarNomApTelef(ClienteDao clienteDao, String nombre, String apellido, int telefono)
+			throws MisExcepciones {
 		for (Cliente cliente : clienteDao.getAll()) {
-			if (cliente.getTelefono() == telefono && cliente.getApellidoContacto().equals(apellido) && cliente.getNombreContacto().equals(nombre)) {
+			if (cliente.getTelefono() == telefono && cliente.getApellidoContacto().equals(apellido)
+					&& cliente.getNombreContacto().equals(nombre)) {
 				throw new MisExcepciones(111);
 			}
 		}

@@ -7,7 +7,7 @@ import DAO.BuilderClienteDao;
 import EXCEPCIONES.MisExcepciones;
 import MODEL.misDocumentos;
 
-public class BuilderClienteTest {
+public class BuilderPedidoTest {
 
 	@Test
 	private void test() {
